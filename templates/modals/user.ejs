@@ -1,0 +1,36 @@
+<div class="modal fade" id="userInfo">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title"><%= login %></h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body p-0">
+                <div class="photo">
+                    <img class="" src="<%= avatar_url %>" />
+                </div>
+                <div class="information">
+                    <div class="mt-1 ml-3">Name: <%= name %></div>
+                    <% if (email) { %>
+                        <div class="mt-1 ml-3">Email: <%= email %></div>
+                    <% } %>
+                    <% if (location) { %>
+                        <div class="mt-1 ml-3">Location: <%= location %></div>
+                    <% } %>
+                    <div class="mt-1 ml-3">
+                        Public Repos: <%= public_repos %> 
+                        &ensp; <span class="view js-repo-url" url="<%= repos_url %>" >View</span>
+                    </div>
+                    <% if (company) { %>
+                        <div class="mt-1 ml-3">Company: <%= company %></div>
+                    <% } %>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

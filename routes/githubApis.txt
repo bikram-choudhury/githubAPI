@@ -1,0 +1,29 @@
+https://api.github.com/orgs/snapwiz/repos
+
+https://api.github.com/users/bikramchoudhury/repos
+
+https://api.github.com/repositories
+
+https://api.github.com/repos/bikramchoudhury/query-poll
+
+https://api.github.com/repos/bikramchoudhury/query-poll/contributors
+
+https://api.github.com/search/repositories?q=query
+
+https://api.github.com/search/users?q=tom+in:login+repos:>42+followers:>1000
+
+
+token  :  0a208d33b31940f2c54ef4bf7aa8f2b01e66a33b
+
+
+
+https://www.youtube.com/watch?v=qVTAB8Z2VmA
+
+https://www.youtube.com/watch?v=wcUdBgktd4s
+
+get github repository users with API
+
+
+
+
+https://apply.naukri.com/apply/saveApply?strJobsarr=220718000941&applytype=single&resId=83332781&ApplyMode=1&logstr=-1_0_66---F-0-1--&id=&src=sajermj&reqId=&response=&questData=&multiApplyResp={%22220718000941%22:200}&https_apply=&jquery=1&edup=&applySrc=&isMobile=&actualDomain=www.naukri.com&interest=&https_apply=&cb=&fb=&appreqid=&ip=223.226.77.103&webApp=

@@ -1,0 +1,4 @@
+{
+    "port": 5000,
+    "apiUrl": "https://api.github.com"
+}

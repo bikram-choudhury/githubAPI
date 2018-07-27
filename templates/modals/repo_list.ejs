@@ -1,0 +1,60 @@
+<!-- The Modal -->
+<div class="modal fade" id="repoList">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Modal Heading</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <% lists.forEach((list,index) => {
+                      let name = list.name ? list.name: 'NA',
+                          description = list.description || '';
+                %>
+                <div class="card w-100 mb-2">
+                    <div class="card-body">
+                        <div class="vertical-center-with-space-between">
+                          <h5 class="card-title m-0" title="<%= list.full_name ? list.full_name: '' %>"><%= name %></h5>
+                          <a href="<%= list.html_url %>" target="_blank" class="float-sm-right view">View</a>
+                        </div>
+                        <div class="card-text small ellipsis description" title="<%= description %>"><%= description %></div>
+                        <div class="info pt-1">
+                          <p class="card-text mb-2 mr-3 inline-flex">
+                            <small class="mr-1">Private</small>
+                            <small class="badge br-1 border-<%= list.private ? 'danger' : 'success' %>">
+                              <%= list.private %>
+                            </small>
+                          </p>
+                          <p class="card-text mb-2 mr-3 inline-flex">
+                            <small class="mr-1">Fork</small>
+                            <small class="badge br-1 border-<%= !list.fork ? 'danger' : 'success' %>">
+                              <%= list.fork %>
+                            </small>
+                          </p>
+                          <p class="card-text mb-2 mr-3 inline-flex">
+                            <small class="mr-1">Commits</small>
+                            <small class="badge br-1 border-info">0</small>
+                          </p>
+                          <p class="card-text mb-2 mr-3 inline-flex">
+                            <small class="badge br-1 border-primary" url="">Copy Clone URL</small>
+                          </p>
+                          <p class="card-text mb-2 mr-3 inline-flex">
+                            <small class="mr-1">Open Issues</small>
+                            <small class="badge br-1 border-info"><%= list.open_issues_count %></small>
+                          </p>
+                        </div>
+                        
+                    </div>
+                </div>
+                
+                <% }); %>
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

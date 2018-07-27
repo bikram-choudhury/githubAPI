@@ -1,0 +1,18 @@
+
+<%	if(users.length) {
+		users.forEach(function(user, index) {  %>
+			<div class="col-sm-4 m-t-20">
+		        <div class="card">
+		            <div class="card-body">
+		                <h5 class="card-title"><%= user.login %></h5>
+		                <h6 class="card-subtitle mb-2 text-muted">
+		                	<a href="javascript:void(0)" url="<%= user.url %>" class="js-user">Check <%= user.login %>'s info</a>
+		                </h6>
+		                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+		                <a target="_blank" href="javascript:void(0)" url="<%= user.repos_url %>" class="card-link js-repo-url">Repo's URL</a>
+		                <a target="_blank" href="<%= user.organizations_url %>" class="card-link">Organisation's URL</a>
+		            </div>
+		        </div>
+		    </div>
+<%		});
+	}		%>

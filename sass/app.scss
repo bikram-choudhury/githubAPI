@@ -1,0 +1,117 @@
+body {
+	.m-t-10 {
+        margin-top: 10px;
+    }
+    .m-r-10 {
+		margin-right: 10px;
+	}
+	.m-t-20 {
+		margin-top: 20px;
+	}
+    background: #ffffff;
+    h1 {
+        color: crimson;
+        font-size: 20px;
+    }
+    .flex {
+        display: flex;
+    }
+    .inline-flex {
+        display: inline-flex;
+    }
+    .br-1 {
+        border: 1px solid;
+    }
+    .ellipsis {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+    .hidden {
+        display: hidden;
+    }
+    .vertical-center-with-space-between {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .loader {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background: url(/images/loading.gif) no-repeat center #FFF;
+        z-index: 9;
+        display: none;
+    }
+    .view {
+        font-size: 14px;
+        font-weight: 700;
+        letter-spacing: 0.4px;
+        color: #75c20f;
+        cursor: pointer;
+    }
+    .modal-title {
+        text-transform: capitalize;
+    }
+    #userInfo {
+        .modal-body {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            .photo {
+                border-right: 2px solid #00000038;
+                padding: 1em 1.5em;
+                img{
+                    border: 5px solid #17a2b8;
+                    border-radius: 50%;
+                    height: 200px;
+                }
+            } 
+            .information {
+                display: flex;
+                justify-content: center;
+                flex-direction: column;
+            }
+        }
+    }
+    #repoList {
+        .modal-dialog {
+            max-width: 1100px;
+        }
+        .modal-body {
+            max-height: 450px;
+            overflow-y: auto;
+            .card {
+                .card-body{
+                    padding: 0.5em 0.8rem 0em 0.8em;
+                    .card-title {
+                        color: #3892d7;
+                        font-size: 22px;
+                        font-weight: 500;
+                        letter-spacing: 0.4px;
+                        text-transform: capitalize;
+                    }
+                    .card-text {
+                        &.description {
+                            color: #b7bbc3;
+                        }
+                    }
+                    .info {
+                        p.card-text {
+                            color: #7c869c;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .container {
+        padding: 50px;
+        .description {
+            font-style: italic;
+        }
+    }
+}
