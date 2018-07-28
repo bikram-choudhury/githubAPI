@@ -7,6 +7,8 @@ const index = require('./routes/index');
 const users = require('./routes/users');
 const sassMiddleware = require('node-sass-middleware');
 const ejs = require('ejs');
+const session = require('express-session');
+
 const app = express();
 
 app.set('views', path.join(__dirname, 'views'));
@@ -16,6 +18,22 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+const cookie = {
+  httpOnly: true,
+  maxAge  : 60 * 1000 
+};
+
+if (app.get('env') === 'production') {
+  cookie.secure = true;
+}
+
+app.use(session({
+  secret: 'Ilovenode',
+  resave: false,
+  saveUninitialized: true,
+  cookie: cookie
+}));
 
 app.use(sassMiddleware({
   src: path.join(__dirname, 'sass'),

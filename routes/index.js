@@ -15,24 +15,55 @@ const getOptions = {
 
 /* GET home page. */
 router.get('/', (req, res) => {
-  res.render('index', { title: 'GitHub Api Integration' });
+  res.render('registration', { title: 'Learn Node basics', isRegistrationPage: true });
 });
 
-router.post('/getUesrs', (req, res) => {
+router.post('/account/signup', (req, res) => {
+	const user = req.body || [];
+  	let username, email, password;
+	if (Object.keys(user).length) {
+		username = user.username;
+		email = user.email;
+		password = user.password && user.password[0] === user.password[1] ? user.password[0] : '';
+	}
+	if (!username || !email || !password) {
+		res.render('registration', { 
+					title: 'Learn Node basics',
+					isRegistrationPage: true,
+					status: false
+				});
+		return;
+	}
+
+	req.session.user = {
+		username,
+		email,
+		password
+	};
+	res.redirect('/git');
+});
+
+router.get('/logout', (req, res) => {
+	req.session.destroy((error) => {
+		error && res.send(error);
+
+		res.redirect('/');
+	});
+})
+
+router.get('/git', (req, res) => {
+	if (req.session.user) {
+		res.render('index', { title: 'GitHub Api Integration' });
+	} else {
+		res.redirect('/');
+	}
+});
+
+router.post('/git/getUesrs', (req, res) => {
 	const query = req.body && req.body.search;
 
 	const options = getOptions;
-	// options.url = `${apiURL}/users`;
 	options.url = `${apiURL}/search/users?q=${query}+in:fullname`;
-
-	/*{
-		method: 'GET',
-		url: `${apiURL}/users`,
-		headers: {
-			'cache-control': 'no-cache',
-			'user-agent': 'node.js'
-		}
-	};*/
 
 	request(options, (error, response, body) => {
 		if (error) throw new Error(error);
@@ -42,7 +73,7 @@ router.post('/getUesrs', (req, res) => {
 
 });
 
-router.post('/getUserRepoDetails', (req, res) => {
+router.post('/git/getUserRepoDetails', (req, res) => {
 	const repo_url = req.body && req.body.repo_url;
 
 	const options = getOptions;
@@ -55,7 +86,7 @@ router.post('/getUserRepoDetails', (req, res) => {
 	})
 });
 
-router.post('/getUserDetails', (req, res) => {
+router.post('/git/getUserDetails', (req, res) => {
 	const info_url = req.body && req.body.info_url;
 
 	const options = getOptions;

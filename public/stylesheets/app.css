@@ -6,9 +6,6 @@ body {
     margin-right: 10px; }
   body .m-t-20 {
     margin-top: 20px; }
-  body h1 {
-    color: crimson;
-    font-size: 20px; }
   body .flex {
     display: flex; }
   body .inline-flex {

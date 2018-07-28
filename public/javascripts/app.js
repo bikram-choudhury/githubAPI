@@ -8,6 +8,11 @@ const debounce = (fn, time) => {
 };
 $(document).ready(() => {
 
+    /* Registration events */
+
+    
+    
+    /* GitHub API events */
     $(".js-search-user").focus();
 
     let lastKeyupValue = '';
@@ -20,7 +25,7 @@ $(document).ready(() => {
         if (value.length >= 3 && lastKeyupValue !== value && event.keyCode === 13) {
             $(".loader").show();
 
-            fetch('/getUesrs', {
+            fetch('/git/getUesrs', {
                 method: 'POST',
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(query)
@@ -59,7 +64,7 @@ $(document).ready(() => {
         };
         $(".modal, .modal-backdrop").remove();
         $(".loader").show();
-        fetch('/getUserRepoDetails',{
+        fetch('/git/getUserRepoDetails',{
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(query)
@@ -88,7 +93,7 @@ $(document).ready(() => {
         };
         $(".modal, .modal-backdrop").remove();
         $(".loader").show();
-        fetch('/getUserDetails',{
+        fetch('/git/getUserDetails',{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
