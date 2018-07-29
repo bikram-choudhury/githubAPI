@@ -4,6 +4,11 @@ const apiURL = require('../config.json').apiUrl;
 
 const router = express.Router();
 
+const csrf = require('csurf');
+const csrfProtection = csrf({ cookie: true });
+
+router.use(csrfProtection);
+
 const getOptions = {
 	method: 'GET',
 	headers: {
@@ -15,7 +20,7 @@ const getOptions = {
 
 /* GET home page. */
 router.get('/', (req, res) => {
-  res.render('registration', { title: 'Learn Node basics', isRegistrationPage: true });
+  res.render('registration', { title: 'Learn Node basics', csrfToken: req.csrfToken(), isRegistrationPage: true });
 });
 
 router.post('/account/signup', (req, res) => {

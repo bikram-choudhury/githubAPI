@@ -46,6 +46,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/static',express.static(path.join(__dirname, './node_modules/ejs')));
 app.use('/templates',express.static(path.join(__dirname, 'templates')));
 
+app.use(function(req, res, next) {
+  res.locals.user = req.session.user;
+  next();
+});
+
 app.use('/', index);
 app.use('/users', users);
 

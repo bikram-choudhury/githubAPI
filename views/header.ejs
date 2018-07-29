@@ -19,3 +19,6 @@
   </head>
   <body>
     <div class="loader"></div>
+    <%  if (typeof user !== 'undefined' && user && user.username) { %>
+      <h1 class="text-center">Wellcome <%= user.username %>!</h1>
+    <%  } %>
