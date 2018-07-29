@@ -14,6 +14,7 @@ $(document).ready(() => {
     
     /* GitHub API events */
     $(".js-search-user").focus();
+    const csrfToken = $('meta[name="csrf-token"]').attr('content');
 
     let lastKeyupValue = '';
     $(document).on('keyup', '.js-search-user', function(event) {
@@ -26,8 +27,9 @@ $(document).ready(() => {
             $(".loader").show();
 
             fetch('/git/getUesrs', {
+                credentials: 'same-origin',
                 method: 'POST',
-                headers: { "Content-Type": "application/json" },
+                headers: { "Content-Type": "application/json", "CSRF-Token": csrfToken },
                 body: JSON.stringify(query)
             })
             .then((response) => response.json())
@@ -65,8 +67,9 @@ $(document).ready(() => {
         $(".modal, .modal-backdrop").remove();
         $(".loader").show();
         fetch('/git/getUserRepoDetails',{
+            credentials: 'same-origin',
             method: 'POST',
-            headers: {'Content-Type': 'application/json'},
+            headers: {'Content-Type': 'application/json', "CSRF-Token": csrfToken },
             body: JSON.stringify(query)
         })
         .then(response => response.json())
@@ -94,9 +97,11 @@ $(document).ready(() => {
         $(".modal, .modal-backdrop").remove();
         $(".loader").show();
         fetch('/git/getUserDetails',{
+            credentials: 'same-origin',
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                "CSRF-Token": csrfToken
             },
             body: JSON.stringify(query)
         })

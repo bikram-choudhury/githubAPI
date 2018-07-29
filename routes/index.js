@@ -9,6 +9,11 @@ const csrfProtection = csrf({ cookie: true });
 
 router.use(csrfProtection);
 
+router.use(function(req, res, next) {
+	res.locals.csrfToken = req.csrfToken();
+	next();
+});
+
 const getOptions = {
 	method: 'GET',
 	headers: {
@@ -20,7 +25,7 @@ const getOptions = {
 
 /* GET home page. */
 router.get('/', (req, res) => {
-  res.render('registration', { title: 'Learn Node basics', csrfToken: req.csrfToken(), isRegistrationPage: true });
+  res.render('registration', { title: 'Learn Node basics', isRegistrationPage: true });
 });
 
 router.post('/account/signup', (req, res) => {
