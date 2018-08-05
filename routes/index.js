@@ -1,6 +1,7 @@
 const express = require('express');
 const request = require('request');
 const apiURL = require('../config.json').apiUrl;
+const async = require("async");
 
 const router = express.Router();
 
@@ -22,6 +23,132 @@ const getOptions = {
 		'Content-Type': 'application/json'
 	}
 }
+
+/* async Operation*/
+
+/* async-parallel */
+
+router.get('/async-parallel/array', (req, res) => {
+	async.parallel([
+		(callback) => {
+			setTimeout(() => {
+				callback(null, 'one');
+			},2000);
+		},
+		(callback) => {
+			setTimeout(() => {
+				callback(null, 'two');
+			},1000);	
+		}
+	], (error, results) => {
+		csonsole.log(results);
+	})
+});
+
+router.get('/async/parallel/:uId?', (req, res) => {
+	const userId = req.params && req.params.uId;
+	const options = getOptions;
+	async.parallel([
+			(callback) => {
+				options.url = `${apiURL}/users/${userId}/repos`;
+				request(options, (error, response, body) => {
+					if (error) throw new Error(error);
+
+					callback(null, JSON.parse(body));
+				});
+			},
+			(callback) => {
+				options.url = `${apiURL}/users/${userId}`;
+				request(options, (error, response, body) => {
+					if (error) throw new Error(error);
+
+					callback(null, JSON.parse(body));
+				})
+			}
+		],(error, results) => {
+			if (error) throw new Error(error);
+
+			res.json(results);
+	});
+});
+
+/* async-series */
+
+router.get('/async/series/:uId?', (req, res) => {
+	const userId = req.params && req.params.uId;
+	const options = getOptions;
+	const locals = {};
+
+	async.series([
+			(callback) => {
+				options.url = `${apiURL}/users/${userId}/repos`;
+				request(options, (error, response, body) => {
+					if (error) throw new Error(error);
+					
+					locals.repos = JSON.parse(body);
+					callback(null, locals.repos);
+				});
+			},
+			(callback) => {
+				options.url = `${apiURL}/users/${userId}`;
+				request(options, (error, response, body) => {
+					if (error) throw new Error(error);
+
+					locals.user = JSON.parse(body);
+					callback(null, locals.user);
+				})
+			}
+		], (error, results) => {
+			if (error) throw new Error(error);
+
+			res.json(results);
+	});
+});
+
+/* async-waterfall */
+
+router.get('/async/waterfall/:uId?', (req, res) => {
+	const userId = req.params && req.params.uId;
+	const options = getOptions;
+
+	async.waterfall([
+			(callback) => {
+				options.url = `${apiURL}/users/${userId}/repos`;
+				request(options, (error, response, repos) => {
+					if (error) throw new Error(error);
+					
+					callback(null, JSON.parse(repos));
+				});
+			},
+			(repos, callback) => {
+				options.url = `${apiURL}/users/${userId}`;
+				request(options, (error, response, user) => {
+					if (error) throw new Error(error);
+
+					callback(null, {
+						user:  JSON.parse(user),
+						repos
+					});
+				});
+			},
+			(results, callback) => {
+				options.url = `https://jsonplaceholder.typicode.com/todos/1`;
+				request(options, (error, response, demo) => {
+					if (error) throw new Error(error);
+
+					callback(null, {
+						user:  results.user,
+						repos: results.repos,
+						demo: JSON.parse(demo)
+					});
+				})
+			}
+		], (error, results) => {
+			if (error) throw new Error(error);
+
+			res.json(results);
+	});
+});
 
 /* GET home page. */
 router.get('/', (req, res) => {
